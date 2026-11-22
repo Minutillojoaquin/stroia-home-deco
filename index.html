@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stroia Home Deco</title>
+<link rel="icon" href="logo/logo-stroia.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -40,6 +41,7 @@ button,select,input,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:30;background:var(--crema);border-bottom:1px solid var(--beige)}
 .top .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:8px 28px;padding-top:12px;padding-bottom:12px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.logo{display:block;width:64px;height:64px;object-fit:contain;mix-blend-mode:multiply}
 .bt{display:flex;flex-direction:column;line-height:1}
 .bt b{font-family:var(--display);font-weight:400;font-size:1.55rem}
 .bt small{font-size:.78rem;font-weight:600;color:var(--oliva);margin-top:3px}
@@ -207,8 +209,7 @@ button,select,input,textarea{font:inherit;color:inherit}
 <header class="top" id="top">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Stroia Home Deco, ir al inicio">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><path d="M3 33V17a14 14 0 0 1 28 0v16Z" fill="#626A53"/><path d="M17 28C10 22 11 14 17 8C23 14 24 22 17 28Z" fill="#F5F0E7"/><path d="M17 27V14" stroke="#626A53" stroke-width="1.5"/></svg>
-      <span class="bt"><b>Stroia</b><small>Home Deco</small></span>
+      <img class="logo" src="logo/logo-stroia.jpg" alt="Stroia Home Deco" width="64" height="64">
     </a>
     <nav class="nav" aria-label="Principal">
       <a href="#inicio" data-nav="inicio">Inicio</a>
