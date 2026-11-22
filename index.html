@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stroia Home Deco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: una sola página con vistas por hash; el arco de invernadero se repite en hero, categorías y servicios */
+  --crema:#F5F0E7;
+  --beige:#DCD8C9;
+  --salvia:#929782;
+  --oliva:#626A53;
+  --oscuro:#393D2D;
+  --wa:#25D366;
+  --display:'Young Serif',Georgia,'Times New Roman',serif;
+  --body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--crema);color:var(--oscuro);font-family:var(--body);font-size:1rem;line-height:1.55}
+body.lock{overflow:hidden}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.3rem,5.4vw,4.2rem)}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+a{color:inherit}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--oliva);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.muted{color:var(--oliva)}
+
+/* Encabezado */
+.top{position:sticky;top:0;z-index:30;background:var(--crema);border-bottom:1px solid var(--beige)}
+.top .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:8px 28px;padding-top:12px;padding-bottom:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.bt{display:flex;flex-direction:column;line-height:1}
+.bt b{font-family:var(--display);font-weight:400;font-size:1.55rem}
+.bt small{font-size:.78rem;font-weight:600;color:var(--oliva);margin-top:3px}
+.nav{display:flex;gap:4px;order:2}
+.nav a{padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:500}
+.nav a:hover{background:var(--beige)}
+.nav a[aria-current]{background:var(--oscuro);color:var(--crema)}
+.cartbtn{order:3;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--oscuro);background:transparent;border-radius:999px;padding:7px 8px 7px 14px;font-weight:600;cursor:pointer}
+.cartbtn:hover{background:var(--beige)}
+.count{min-width:24px;height:24px;border-radius:999px;background:var(--oscuro);color:var(--crema);display:inline-grid;place-items:center;font-size:.85rem;padding:0 6px}
+@media(max-width:720px){
+  .brand{order:1}
+  .cartbtn{order:2}
+  .nav{order:3;width:100%;overflow-x:auto}
+  .nav a{white-space:nowrap}
+}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--oscuro);background:var(--oscuro);color:var(--crema);padding:12px 24px;border-radius:999px;font-weight:600;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--oliva);border-color:var(--oliva)}
+.btn.ghost{background:transparent;color:var(--oscuro)}
+.btn.ghost:hover{background:var(--beige);border-color:var(--oscuro);color:var(--oscuro)}
+.btn.sm{padding:9px 16px;font-size:.95rem}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+/* Inicio */
+.hero{padding:44px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero p{max-width:46ch;margin-top:20px;font-size:1.15rem;color:var(--oliva)}
+.arch{background:var(--beige);border-radius:999px 999px 8px 8px;overflow:hidden;aspect-ratio:5/6;width:100%;max-width:440px;justify-self:end}
+.arch svg{display:block;width:100%;height:100%}
+@media(max-width:820px){
+  .hero .wrap{grid-template-columns:1fr;gap:32px}
+  .arch{justify-self:start;max-width:340px}
+}
+.block{padding:48px 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;margin-bottom:26px}
+.sec-head a{font-weight:600;text-underline-offset:4px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:26px 16px}
+.tile{text-decoration:none}
+.tile-art{display:grid;place-items:center;background:var(--beige);border-radius:999px 999px 6px 6px;padding:30px 14px 16px}
+.tile-art svg{width:74%;height:auto;display:block}
+.tile-name{display:block;margin-top:10px;font-weight:600}
+.tile:hover .tile-name{text-decoration:underline;text-underline-offset:4px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.step .n{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--oliva)}
+.step h3{margin:10px 0 6px}
+@media(max-width:720px){.steps{grid-template-columns:1fr;gap:22px}}
+.band{background:var(--oliva);color:var(--crema);padding:56px 0}
+.band .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.band p{margin:10px 0 20px;max-width:44ch}
+.band .btn{background:var(--crema);color:var(--oscuro);border-color:var(--crema)}
+.band .btn:hover{background:var(--beige);border-color:var(--beige);color:var(--oscuro)}
+@media(max-width:720px){.band .cols{grid-template-columns:1fr;gap:32px}}
+
+/* Productos */
+.page-head{padding:36px 0 0}
+.shop{display:grid;grid-template-columns:230px 1fr;gap:32px;padding:24px 0 64px}
+.cats{display:flex;flex-direction:column;gap:2px}
+.cats a{display:flex;justify-content:space-between;gap:8px;padding:9px 12px;border-radius:6px;text-decoration:none;font-weight:500}
+.cats a:hover{background:var(--beige)}
+.cats a[aria-current]{background:var(--oscuro);color:var(--crema)}
+.cats small{opacity:.7;font-size:.85rem}
+.tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;margin-bottom:20px}
+.tools input{width:min(100%,320px);border:1.5px solid var(--salvia);background:transparent;border-radius:999px;padding:10px 16px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:820px){
+  .shop{grid-template-columns:1fr;gap:16px}
+  .cats{flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  .cats a{white-space:nowrap;gap:10px}
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{display:flex;flex-direction:column;border:1px solid var(--beige);border-radius:6px;overflow:hidden}
+.card-art{background:var(--beige);padding:16px 0;display:grid;place-items:center}
+.card-art svg{width:62%;max-width:180px;height:auto;display:block}
+.card-body{display:flex;flex-direction:column;gap:10px;padding:14px;flex:1}
+.card h3{font-size:1.1rem}
+.card p{font-size:.93rem;color:var(--oliva)}
+.opt{display:flex;flex-direction:column;gap:6px}
+.lbl{font-size:.9rem;font-weight:600}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.swatch{width:28px;height:28px;border-radius:50%;background:var(--c);border:1px solid rgba(57,61,45,.4);padding:0;cursor:pointer}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--crema),0 0 0 4px var(--oscuro)}
+.opt select{border:1.5px solid var(--salvia);background:transparent;border-radius:6px;padding:8px 10px}
+.buy{margin-top:auto;padding-top:6px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.buy .btn{white-space:nowrap}
+.price{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.empty{padding:40px 0;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.card-art.photo{padding:0;display:block;aspect-ratio:3/4}
+.card-art.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs{display:flex;gap:6px;padding:10px 14px 0}
+.tb{width:44px;height:44px;padding:0;border:2px solid var(--beige);border-radius:6px;overflow:hidden;background:none;cursor:pointer}
+.tb img{width:100%;height:100%;object-fit:cover;display:block}
+.tb[aria-pressed="true"]{border-color:var(--oscuro)}
+.consult{font-weight:600;color:var(--oliva)}
+.thumb img{width:100%;height:100%;object-fit:cover;border-radius:6px;display:block}
+
+/* Servicios y Conocenos */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:40px 0}
+.svc .arch{max-width:340px;aspect-ratio:1/1.1;justify-self:start}
+.svc .arch svg{padding:12% 14% 0}
+.svc.rev .arch{order:2;justify-self:end}
+.svc p{margin-top:14px;max-width:52ch}
+.svc dl{margin:20px 0 0;display:grid;gap:12px;max-width:52ch}
+.svc dt{font-weight:700}
+.svc dd{margin:0;color:var(--oliva)}
+@media(max-width:820px){
+  .svc{grid-template-columns:1fr;gap:24px}
+  .svc.rev .arch{order:0;justify-self:start}
+}
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:48px 0 64px}
+.about p{margin-top:16px;max-width:54ch;font-size:1.05rem}
+@media(max-width:820px){.about{grid-template-columns:1fr;gap:32px}}
+
+/* Pie de página */
+.foot{background:var(--oscuro);color:var(--crema);padding:44px 0 110px}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
+.foot .bt small{color:var(--beige)}
+.foot nav{display:flex;flex-wrap:wrap;gap:8px 28px}
+.foot nav a{font-weight:600;text-underline-offset:4px}
+.foot .copy{width:100%;font-size:.85rem;color:var(--beige)}
+
+/* WhatsApp flotante */
+.wa{position:fixed;right:18px;bottom:18px;z-index:20;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.wa:hover{filter:brightness(.94)}
+
+/* Carrito */
+.scrim{position:fixed;inset:0;background:rgba(57,61,45,.55);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--crema);z-index:50;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.2)}
+.drawer:not([hidden]){animation:slide .22s ease-out}
+@keyframes slide{from{transform:translateX(28px);opacity:0}to{transform:none;opacity:1}}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--beige)}
+.iconbtn{border:1.5px solid var(--oscuro);background:transparent;border-radius:999px;padding:6px 14px;font-weight:600;cursor:pointer}
+.iconbtn:hover{background:var(--beige)}
+.items{list-style:none;margin:0;padding:8px 20px;flex:1;overflow-y:auto}
+.item{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--beige)}
+.thumb{background:var(--beige);border-radius:6px;display:grid;place-items:center;height:64px}
+.thumb svg{width:84%;height:auto}
+.item h4{margin:0;font-size:1rem;font-weight:600}
+.item .det{font-size:.88rem;color:var(--oliva)}
+.item .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;flex-wrap:wrap}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--salvia);border-radius:999px}
+.qty button{width:32px;height:32px;border:0;background:transparent;font-size:1.1rem;cursor:pointer;border-radius:50%}
+.qty button:hover{background:var(--beige)}
+.qty output{min-width:26px;text-align:center;font-variant-numeric:tabular-nums}
+.linkbtn{border:0;background:none;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:.9rem}
+.empty-cart{padding:32px 0;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.order{padding:16px 20px 20px;border-top:1px solid var(--beige);display:grid;gap:10px;background:var(--crema)}
+.order label{font-size:.9rem;font-weight:600}
+.order input,.order select,.order textarea{width:100%;border:1.5px solid var(--salvia);background:transparent;border-radius:6px;padding:9px 11px}
+.order textarea{resize:vertical;min-height:56px}
+.total{display:flex;justify-content:space-between;align-items:baseline;font-size:1.1rem;font-weight:700;font-variant-numeric:tabular-nums}
+.note{font-size:.85rem;color:var(--oliva)}
+.send[aria-disabled="true"]{opacity:.5;pointer-events:none}
+.toast{position:fixed;left:16px;bottom:24px;max-width:calc(100% - 100px);background:var(--oscuro);color:var(--crema);padding:10px 18px;border-radius:999px;z-index:60;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Stroia Home Deco, ir al inicio">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><path d="M3 33V17a14 14 0 0 1 28 0v16Z" fill="#626A53"/><path d="M17 28C10 22 11 14 17 8C23 14 24 22 17 28Z" fill="#F5F0E7"/><path d="M17 27V14" stroke="#626A53" stroke-width="1.5"/></svg>
+      <span class="bt"><b>Stroia</b><small>Home Deco</small></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#productos" data-nav="productos">Productos</a>
+      <a href="#servicios" data-nav="servicios">Servicios</a>
+      <a href="#conocenos" data-nav="conocenos">Conocenos</a>
+    </nav>
+    <button class="cartbtn" id="cartbtn" type="button" aria-label="Abrir carrito">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      Carrito <span class="count" id="count">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- INICIO -->
+  <section data-view="inicio">
+    <div class="hero">
+      <div class="wrap">
+        <div>
+          <h1>Plantas y deco para tu casa</h1>
+          <p>Macetas, pies nórdicos, plantas de interior y exterior, tierra, fertilizantes y más. Armá tu pedido acá y lo cerramos por WhatsApp.</p>
+          <div class="btns">
+            <a class="btn" href="#productos">Ver productos</a>
+            <a class="btn ghost" href="#servicios">Servicios</a>
+          </div>
+        </div>
+        <div class="arch" id="hero-art"></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="wrap">
+        <div class="sec-head"><h2>Categorías</h2><a href="#productos">Ver todos los productos</a></div>
+        <div class="tiles" id="tiles"></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="wrap">
+        <div class="sec-head"><h2>Destacados</h2><a href="#productos">Ver todos los productos</a></div>
+        <div class="grid" id="featured"></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="wrap">
+        <div class="sec-head"><h2>Cómo comprar</h2></div>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><h3>Elegí tus productos</h3><p class="muted">Mirá las categorías y elegí color o medida cuando haya variantes.</p></div>
+          <div class="step"><div class="n">2</div><h3>Armá tu carrito</h3><p class="muted">Sumá todo lo que quieras y revisá el total antes de enviar.</p></div>
+          <div class="step"><div class="n">3</div><h3>Cerrá por WhatsApp</h3><p class="muted">Tu pedido llega armado al chat. Ahí confirmamos stock, pago y entrega o retiro.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="wrap cols">
+        <div>
+          <h2>Jardinería a domicilio</h2>
+          <p>Poda, jardines y balcones. Vamos a tu casa y nos ocupamos del verde.</p>
+          <a class="btn" href="#servicios">Ver servicios</a>
+        </div>
+        <div>
+          <h2>Médico de plantas</h2>
+          <p>Si tu planta no se ve bien, la revisamos y te decimos qué hacer.</p>
+          <a class="btn" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section data-view="productos" hidden>
+    <div class="wrap">
+      <div class="page-head"><h1 id="p-title">Productos</h1></div>
+      <div class="shop">
+        <nav class="cats" id="p-cats" aria-label="Categorías"></nav>
+        <div>
+          <div class="tools">
+            <label class="vh" for="q">Buscar productos</label>
+            <input id="q" type="search" placeholder="Buscar productos" autocomplete="off">
+            <span class="muted" id="p-count" aria-live="polite"></span>
+          </div>
+          <div class="grid" id="grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section data-view="servicios" hidden>
+    <div class="wrap">
+      <div class="page-head"><h1>Servicios</h1></div>
+
+      <div class="svc">
+        <div>
+          <h2>Jardinería a domicilio</h2>
+          <p>Vamos a tu casa y nos ocupamos del verde. Escribinos con una foto del espacio y te pasamos un presupuesto.</p>
+          <dl>
+            <div><dt>Poda</dt><dd>Poda de árboles, arbustos y setos.</dd></div>
+            <div><dt>Jardines</dt><dd>Armado y mantenimiento de jardines.</dd></div>
+            <div><dt>Balcones</dt><dd>Armado de balcones con macetas, pies nórdicos y plantas.</dd></div>
+          </dl>
+          <div class="btns"><a class="btn" data-wa="Hola! Quiero pedir un presupuesto de jardinería a domicilio." href="#servicios" target="_blank" rel="noopener">Pedir presupuesto por WhatsApp</a></div>
+        </div>
+        <div class="arch" id="svc1-art"></div>
+      </div>
+
+      <div class="svc rev">
+        <div>
+          <h2>Médico de plantas</h2>
+          <p>Si tu planta tiene hojas amarillas, manchas, plagas o no crece, la revisamos y te indicamos qué hacer con el riego, la luz o la maceta.</p>
+          <p>Mandanos fotos por WhatsApp o traela al vivero.</p>
+          <div class="btns"><a class="btn" data-wa="Hola! Quiero consultar por el médico de plantas." href="#servicios" target="_blank" rel="noopener">Consultar por WhatsApp</a></div>
+        </div>
+        <div class="arch" id="svc2-art"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONOCENOS -->
+  <section data-view="conocenos" hidden>
+    <div class="wrap about">
+      <div>
+        <h1>Un vivero para tu casa</h1>
+        <p>Stroia Home Deco es un vivero con local físico. Además de plantas, tenemos todo lo que las acompaña: macetas, pies nórdicos, tierra, fertilizantes, sahumerios, fuentes y objetos de decoración.</p>
+        <p>Armamos esta web para que puedas ver qué tenemos, elegir color y medida, y mandarnos tu pedido ya armado. El resto lo resolvemos hablando por WhatsApp.</p>
+        <p>Si no sabés qué planta se lleva bien con tu luz o con tu balcón, escribinos y te orientamos.</p>
+        <div class="btns">
+          <a class="btn" data-wa="Hola! Quiero hacerles una consulta." href="#conocenos" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+          <a class="btn ghost" href="#productos">Ver productos</a>
+        </div>
+      </div>
+      <div class="arch" id="about-art"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" id="foot">
+  <div class="wrap">
+    <div class="bt"><b>Stroia</b><small>Home Deco</small></div>
+    <nav aria-label="Pie de página">
+      <a id="ig" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="#conocenos">Conocenos</a>
+      <a data-wa="Hola! Quiero hacerles una consulta." href="#conocenos" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+    <p class="copy">Stroia Home Deco</p>
+  </div>
+</footer>
+
+<a class="wa" data-wa="Hola! Quiero hacerles una consulta." href="#inicio" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 1 0 16 3Z" fill="#fff"/><path d="M12 10c-.6 0-1.4.9-1.4 2.1 0 2.8 3.9 7.7 8.2 8.6 1.2.2 2.3-.8 2.3-1.7l-.1-.8-2.7-1.2-1 1.1c-1.5-.5-3.3-2.3-3.8-3.8l1-1-1.2-2.8Z" fill="#25D366"/></svg>
+</a>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="scrim" id="scrim" data-close hidden></div>
+
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+  <div class="d-head">
+    <h2 id="cart-title" style="font-size:1.5rem">Tu carrito</h2>
+    <button class="iconbtn" id="close" type="button" data-close>Cerrar</button>
+  </div>
+  <ul class="items" id="items"></ul>
+  <div class="order" id="order">
+    <div class="total"><span>Total</span><span id="total">$0</span></div>
+    <div><label for="nombre">Tu nombre</label><input id="nombre" type="text" autocomplete="name"></div>
+    <div><label for="entrega">Entrega</label>
+      <select id="entrega"><option>Retiro en el vivero</option><option>Envío a domicilio</option></select></div>
+    <div><label for="nota">Aclaraciones</label><textarea id="nota" placeholder="Dirección, horario, dudas"></textarea></div>
+    <a class="btn send" id="send" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+    <p class="note">Acá no se paga nada. El pedido se confirma por WhatsApp.</p>
+    <button class="linkbtn" id="clear" type="button">Vaciar carrito</button>
+  </div>
+</aside>
+
+<script>
+/* ====== Configuración: editá estos datos ====== */
+const WA_NUMBER='5490000000000';           // WhatsApp con código de país, sin + ni espacios
+const INSTAGRAM_URL='https://www.instagram.com/';
+
+/* ====== Ilustraciones ====== */
+const INK='#393D2D',OLI='#626A53',SAL='#929782',CRE='#F5F0E7',WOOD='#B08D62',TERRA='#B8684A';
+const leaf=(x,y,r,s,f)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0 0C-14-22-12-52 0-76C12-52 14-22 0 0Z" fill="${f}"/><path d="M0-4V-64" stroke="${INK}" stroke-opacity=".28" stroke-width="1.4"/></g>`;
+const ln=` stroke="${INK}" stroke-opacity=".3" stroke-width="1.5"`;
+const pot=(cx,y,w,h,c)=>{const wb=w*.72,r=h*.22;return `<path d="M${cx-w/2+3} ${y+r}H${cx+w/2-3}L${cx+wb/2} ${y+h}H${cx-wb/2}Z" fill="${c}"${ln}/><rect x="${cx-w/2}" y="${y}" width="${w}" height="${r}" rx="2" fill="${c}"${ln}/>`};
+const sprout=(x,y)=>leaf(x,y,-30,.28,OLI)+leaf(x,y,30,.28,SAL)+leaf(x,y,0,.34,OLI);
+const ART={
+ 'macetas':c=>pot(60,66,60,44,c)+leaf(60,70,-28,.58,OLI)+leaf(60,70,26,.55,SAL)+leaf(60,70,0,.72,OLI),
+ 'pie-nordico':c=>`<g stroke="${WOOD}" stroke-width="4" stroke-linecap="round"><path d="M44 80L33 112"/><path d="M76 80L87 112"/><path d="M60 80V112"/></g><rect x="34" y="74" width="52" height="7" rx="3.5" fill="${WOOD}"/>`+pot(60,42,48,32,c)+leaf(60,46,-30,.42,OLI)+leaf(60,46,28,.4,SAL)+leaf(60,46,0,.55,OLI),
+ 'plantines':c=>pot(60,80,36,30,c)+`<path d="M60 84V64" stroke="${OLI}" stroke-width="2.5" stroke-linecap="round"/>`+leaf(60,66,-40,.34,OLI)+leaf(60,66,40,.34,SAL)+leaf(60,66,0,.3,OLI),
+ 'plantas-de-interior':c=>pot(60,74,44,36,c)+leaf(60,78,-52,.6,SAL)+leaf(60,78,50,.6,SAL)+leaf(60,78,-24,.8,OLI)+leaf(60,78,24,.78,OLI)+leaf(60,78,0,.92,OLI),
+ 'plantas-de-exterior':c=>`<rect x="58" y="50" width="4" height="40" fill="${WOOD}"/><circle cx="60" cy="34" r="22" fill="${OLI}"/><circle cx="43" cy="48" r="15" fill="${SAL}"/><circle cx="77" cy="48" r="15" fill="${SAL}"/><circle cx="60" cy="24" r="12" fill="${SAL}" opacity=".6"/>`+pot(60,86,40,24,c),
+ 'semillas':c=>`<rect x="34" y="22" width="52" height="86" rx="3" fill="${c}"${ln}/><path d="M34 34H86" stroke="${INK}" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="3 3"/><rect x="41" y="46" width="38" height="50" rx="2" fill="${CRE}"/><g fill="${INK}" opacity=".5"><circle cx="50" cy="52" r="1.6"/><circle cx="60" cy="56" r="1.6"/><circle cx="70" cy="52" r="1.6"/></g>`+leaf(60,90,-32,.3,OLI)+leaf(60,90,32,.3,SAL)+leaf(60,90,0,.34,OLI),
+ 'fertilizantes':c=>`<rect x="49" y="12" width="22" height="13" rx="2" fill="${INK}"/><rect x="52" y="25" width="16" height="11" fill="${c}"${ln}/><rect x="36" y="35" width="48" height="73" rx="9" fill="${c}"${ln}/><rect x="42" y="56" width="36" height="36" rx="3" fill="${CRE}"/>`+sprout(60,86),
+ 'decoracion':c=>`<path d="M49 36H71C71 52 88 60 88 82C88 98 78 110 60 110S32 98 32 82C32 60 49 52 49 36Z" fill="${c}"${ln}/>`+leaf(60,40,-16,.7,OLI)+leaf(58,40,14,.62,SAL)+leaf(60,40,-40,.46,SAL)+leaf(62,40,38,.44,OLI),
+ 'tierra':c=>`<path d="M36 36H84L92 108H28Z" fill="${c}"${ln}/><rect x="38" y="26" width="44" height="12" rx="4" fill="${c}"${ln}/><rect x="42" y="58" width="36" height="34" rx="3" fill="${CRE}"/>`+sprout(60,86),
+ 'articulos':c=>`<path d="M40 58C40 36 70 36 70 58" fill="none" stroke="${c}" stroke-width="5"/><path d="M34 66C14 66 14 96 34 94" fill="none" stroke="${c}" stroke-width="6"/><path d="M78 74L100 46" stroke="${c}" stroke-width="7" stroke-linecap="round"/><rect x="28" y="56" width="52" height="48" rx="7" fill="${c}"${ln}/><path d="M96 38L108 52" stroke="${c}" stroke-width="10" stroke-linecap="round"/>`,
+ 'tijera':c=>`<path d="M40 82L94 24M64 86L100 44" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><circle cx="34" cy="94" r="11" fill="none" stroke="${c}" stroke-width="5"/><circle cx="62" cy="102" r="11" fill="none" stroke="${c}" stroke-width="5"/>`,
+ 'spray':c=>`<rect x="40" y="52" width="38" height="56" rx="8" fill="${c}"${ln}/><rect x="52" y="42" width="14" height="12" fill="${c}"${ln}/><rect x="46" y="28" width="36" height="14" rx="4" fill="${INK}"/><rect x="82" y="32" width="12" height="6" rx="2" fill="${INK}"/><path d="M70 44L78 58" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>`,
+ 'sahumerios-y-esencias':c=>`<rect x="20" y="98" width="80" height="9" rx="4.5" fill="${WOOD}"/><path d="M36 100L84 40" stroke="${c}" stroke-width="3.5" stroke-linecap="round"/><circle cx="84" cy="40" r="3" fill="${TERRA}"/><path d="M84 34C76 26 92 20 84 10" fill="none" stroke="${SAL}" stroke-width="2.5" stroke-linecap="round"/><path d="M92 36C84 28 100 22 92 14" fill="none" stroke="${SAL}" stroke-width="2" stroke-linecap="round" opacity=".7"/>`,
+ 'fuentes':c=>`<rect x="20" y="92" width="80" height="16" rx="8" fill="${c}"${ln}/><ellipse cx="60" cy="93" rx="32" ry="3.5" fill="${SAL}" opacity=".6"/><rect x="54" y="58" width="12" height="36" fill="${c}"${ln}/><path d="M36 58C36 74 84 74 84 58Z" fill="${c}"${ln}/><path d="M60 56C60 38 44 36 40 52" fill="none" stroke="${SAL}" stroke-width="3" stroke-linecap="round"/><path d="M60 56C60 38 76 36 80 52" fill="none" stroke="${SAL}" stroke-width="3" stroke-linecap="round"/>`
+};
+const DEF={'macetas':'#EFEBE2','pie-nordico':'#EFEBE2','plantines':TERRA,'plantas-de-interior':'#EFEBE2','plantas-de-exterior':TERRA,'semillas':'#CDB99A','fertilizantes':OLI,'decoracion':'#EFEBE2','tierra':'#7A6249','articulos':OLI,'tijera':TERRA,'spray':OLI,'sahumerios-y-esencias':'#8A6B4A','fuentes':'#A5A39B'};
+const art=(k,c)=>`<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ART[k](c||DEF[k])}</svg>`;
+function heroArt(){
+  let s=`<svg viewBox="0 0 400 480" role="img" aria-label="Planta sobre un pie nórdico junto a una maceta pequeña">`;
+  s+=`<circle cx="200" cy="210" r="130" fill="${SAL}" opacity=".35"/><rect x="0" y="424" width="400" height="56" fill="${SAL}" opacity=".3"/>`;
+  s+=`<g stroke="${WOOD}" stroke-width="9" stroke-linecap="round"><path d="M150 332L118 426"/><path d="M250 332L282 426"/><path d="M200 332V426"/></g><rect x="126" y="322" width="148" height="13" rx="6.5" fill="${WOOD}"/>`;
+  s+=pot(200,236,124,86,CRE);
+  [[-62,1.45,SAL],[60,1.4,OLI],[-38,1.85,OLI],[36,1.9,SAL],[-14,2.1,OLI],[14,1.95,OLI]].forEach(l=>{s+=leaf(200,246,l[0],l[1],l[2])});
+  s+=pot(322,386,58,40,TERRA)+leaf(322,390,-25,.7,OLI)+leaf(322,390,22,.65,SAL)+leaf(322,390,0,.85,OLI);
+  return s+`</svg>`;
+}
+
+/* ====== Datos ====== */
+const COLORS={blanco:['Blanco','#EFEBE2'],terracota:['Terracota','#B8684A'],negro:['Negro','#34352F'],arena:['Arena','#CDB99A'],gris:['Gris cemento','#A5A39B'],salvia:['Verde salvia','#929782']};
+const CATS=[
+ {slug:'macetas',name:'Macetas'},
+ {slug:'pie-nordico',name:'Pie Nórdico'},
+ {slug:'plantines',name:'Plantines'},
+ {slug:'plantas-de-interior',name:'Plantas de interior'},
+ {slug:'plantas-de-exterior',name:'Plantas de exterior'},
+ {slug:'semillas',name:'Semillas'},
+ {slug:'fertilizantes',name:'Fertilizantes'},
+ {slug:'decoracion',name:'Decoración'},
+ {slug:'tierra',name:'Tierra'},
+ {slug:'articulos',name:'Artículos'},
+ {slug:'sahumerios-y-esencias',name:'Sahumerios y Esencias'},
+ {slug:'fuentes',name:'Fuentes'}
+];
+const COL_POT=['blanco','terracota','negro','arena','gris'];
+const COL_NORD=['blanco','negro','arena','terracota'];
+const COL_ART=['salvia','negro','blanco','terracota'];
+const COL_FUE=['gris','negro','blanco','arena'];
+const SIZES=[{label:'Chico, 30 cm de alto',add:0},{label:'Mediano, 45 cm de alto',add:6000},{label:'Grande, 60 cm de alto',add:12000}];
+const P=(id,cat,name,price,desc,o={})=>Object.assign({id,cat,name,price,desc},o);
+/* Fertilizantes: el precio queda en null hasta cargarlo; ahí se muestra "Consultar precio" */
+const F=(id,name,o={})=>{
+  const d=[o.type,o.brand&&'Marca: '+o.brand,o.size&&'Presentación: '+o.size].filter(Boolean).join('. ');
+  return P(id,'fertilizantes',name,null,d?d+'.':'',{imgs:(o.imgs||[]).map(n=>'fotos/'+n+'.webp')});
+};
+/* Precios y productos de ejemplo: reemplazalos por los reales */
+const PRODUCTS=[
+ P('maceta-ceramica','macetas','Maceta de cerámica',6500,'Esmaltada, con plato incluido. 15 cm de diámetro.',{colors:COL_POT}),
+ P('maceta-cemento','macetas','Maceta de cemento',8900,'Cemento pulido. Sirve para interior y exterior. 20 cm de diámetro.',{colors:COL_POT}),
+ P('maceta-grande','macetas','Maceta grande para exterior',15900,'Resiste sol y lluvia. 35 cm de diámetro.',{colors:COL_POT}),
+ P('pie-nordico-redondo','pie-nordico','Pie nórdico con maceta',19800,'Maceta con patas de madera. Elegí color y altura.',{colors:COL_NORD,sizes:SIZES}),
+ P('pie-nordico-conico','pie-nordico','Pie nórdico cónico',21500,'Maceta cónica con patas de madera clara. Elegí color y altura.',{colors:COL_NORD,sizes:SIZES}),
+ P('plantin-lavanda','plantines','Plantín de lavanda',2800,'Listo para pasar a una maceta o al jardín.'),
+ P('plantin-menta','plantines','Plantín de menta',2200,'Aromática de crecimiento rápido.'),
+ P('plantin-suculentas','plantines','Plantín de suculentas',1800,'Variedades surtidas en maceta chica.'),
+ P('monstera','plantas-de-interior','Monstera deliciosa',18500,'Hojas grandes y cortadas. Le gusta la luz indirecta.'),
+ P('potus','plantas-de-interior','Potus',7500,'Fácil de cuidar. Va colgante o apoyado.'),
+ P('sansevieria','plantas-de-interior','Sansevieria',11200,'Aguanta poca luz y poco riego.'),
+ P('helecho','plantas-de-interior','Helecho',9800,'Prefiere humedad y luz suave.'),
+ P('jazmin','plantas-de-exterior','Jazmín del país',14500,'Trepadora perfumada para pared o reja.'),
+ P('hortensia','plantas-de-exterior','Hortensia',16500,'Flores grandes. Prefiere media sombra.'),
+ P('rosal','plantas-de-exterior','Rosal',12500,'Florece durante toda la temporada.'),
+ P('limonero','plantas-de-exterior','Limonero',36000,'Frutal para maceta grande o para el jardín.'),
+ P('sem-albahaca','semillas','Semillas de albahaca',1500,'Sobre de semillas para huerta o maceta.'),
+ P('sem-girasol','semillas','Semillas de girasol',1500,'Sobre de semillas para canteros y patios.'),
+ P('sem-flores','semillas','Mix de flores',1900,'Mezcla de flores de colores para canteros.'),
+ F("glaco-xan-d-sist","Glaco Xan D-SIST",{"brand": "Glacoxan", "size": "30 cm³", "imgs": ["glaco-xan-d-sist"]}),
+ F("glaco-xan-e","Glaco Xan E",{"brand": "Glacoxan", "size": "60 cm³", "imgs": ["glaco-xan-e"]}),
+ F("mamboreta-z","Mamboretá Z",{"size": "30 cm³", "imgs": ["mamboreta-z"]}),
+ F("mamboreta-bolita","Mamboretá Bolita",{"size": "100 g", "imgs": ["mamboreta-bolita"]}),
+ F("fungo-xan","Fungo Xan",{"brand": "Línea Xan", "size": "30 cm³", "imgs": ["fungo-xan"]}),
+ F("jabon-potasico","Jabón potásico",{"brand": "Tekniplant", "size": "250 cc", "imgs": ["jabon-potasico"]}),
+ F("jabon-potasico-neem","Jabón potásico Neem y canela",{"brand": "Tekniplant", "size": "100 cc", "imgs": ["jabon-potasico-neem"]}),
+ F("fertifox-potenciado","Fertifox Potenciado",{"imgs": ["fertifox-potenciado"]}),
+ F("fertifox-activador-follaje","Fertifox Activador del follaje",{"imgs": ["fertifox-activador-follaje-1", "fertifox-activador-follaje-2", "fertifox-activador-follaje-3"]}),
+ F("fertifox-activador-floracion","Fertifox Activador de la floración",{"imgs": ["fertifox-activador-floracion"]}),
+ F("dimetoato-agromel","Dimetoato Agromel",{"size": "30 cc", "imgs": ["dimetoato-agromel"]}),
+ F("mampa","Mampa",{"size": "250 ml", "imgs": ["mampa"]}),
+ F("citronela-concentrada","Citronela concentrada para diluir",{"size": "500 cc", "imgs": ["citronela-concentrada"]}),
+ F("huagro-d-hor-mix","Huagro D Hor-Mix",{"type": "Insecticida y hormiguicida", "size": "60 cc", "imgs": ["huagro-d-hor-mix-1", "huagro-d-hor-mix-2"]}),
+ F("hor-tal","Hor-Tal",{"type": "Hormiguicida e insecticida", "size": "60 cc", "imgs": ["hor-tal"]}),
+ F("fertifox-lustre-vegetal","Fertifox Lustre Vegetal",{"type": "Aerosol", "size": "360 cc", "imgs": ["fertifox-lustre-vegetal"]}),
+ F("citronella-lamparas","Citronella para lámparas y antorchas",{"type": "Líquido rojo", "size": "500 cc", "imgs": ["citronella-lamparas"]}),
+ F("trampa-babosas","Trampa para babosas y caracoles",{"imgs": ["trampa-babosas-1", "trampa-babosas-2"]}),
+ F("japon-fertil-hormona","Japón Fertil Hormona en polvo",{"type": "Para enraizar", "imgs": ["japon-fertil-hormona"]}),
+ F("veloxan","Veloxan",{"type": "Derribante de insectos", "brand": "Línea Xan", "imgs": ["veloxan"]}),
+ F("bonsai","Bonsai",{"type": "Fertilizante líquido", "brand": "Japón Fertil", "imgs": ["bonsai"]}),
+ F("babotox","Babotox",{"type": "Cebo granulado", "brand": "Huagro", "size": "50 g", "imgs": ["babotox"]}),
+ F("fosfato-diamonico-azul","Fosfato diamónico 18-46-0 Azul",{"brand": "Grhesa", "size": "500 g", "imgs": ["fosfato-diamonico-azul"]}),
+ F("fosfato-diamonico-granulado","Fosfato diamónico granulado",{"brand": "El Tigre", "size": "500 g", "imgs": ["fosfato-diamonico-granulado-1", "fosfato-diamonico-granulado-2"]}),
+ F("nutrisol-15","Nutrisol 15 (15-15-15)",{"brand": "Grhesa", "size": "500 g", "imgs": ["nutrisol-15"]}),
+ F("sulfato-de-hierro","Sulfato de hierro",{"brand": "Grhesa", "size": "1 kg", "imgs": ["sulfato-de-hierro"]}),
+ F("mirex-troya","Mirex Troya",{"type": "Hormiguicida granulado", "brand": "Huagro", "size": "250 g", "imgs": ["mirex-troya-1", "mirex-troya-2"]}),
+ F("micorrizas-x5","Micorrizas, pack de 5 frascos",{"brand": "Mampa", "size": "30 ml cada frasco", "imgs": ["micorrizas-x5"]}),
+ F("fertifox-antishock","Fertifox Antishock",{"size": "100 cm³", "imgs": ["fertifox-antishock"]}),
+ F("japon-fertil-azulador","Japón Fertil Azulador para hortensias",{"type": "Con sulfato de aluminio"}),
+ P('florero-ceramica','decoracion','Florero de cerámica',7200,'Para flores frescas o ramas secas.',{colors:COL_POT}),
+ P('florero-anfora','decoracion','Florero ánfora',9600,'Cuerpo ancho y cuello angosto.',{colors:COL_POT}),
+ P('set-floreros','decoracion','Set de 3 floreros',14800,'Tres tamaños que se arman en grupo.',{colors:COL_POT}),
+ P('tierra-5','tierra','Tierra para macetas, 5 litros',3200,'Tierra fértil lista para usar.'),
+ P('tierra-20','tierra','Tierra para macetas, 20 litros',8900,'Bolsa grande para varios trasplantes.'),
+ P('sustrato-cactus','tierra','Sustrato para cactus y suculentas, 5 litros',3800,'Drena rápido para evitar el exceso de agua.'),
+ P('regadera-2l','articulos','Regadera de 2 litros',7800,'Pico largo para llegar entre las hojas.',{colors:COL_ART}),
+ P('regadera-5l','articulos','Regadera de 5 litros',11200,'Para jardín, terraza y balcón.',{colors:COL_ART}),
+ P('tijera','articulos','Tijera de podar',9500,'Hoja de acero para ramas finas.',{colors:COL_ART,kind:'tijera'}),
+ P('pulverizador','articulos','Pulverizador de 500 ml',4200,'Para humedecer hojas y aplicar tratamientos.',{colors:COL_ART,kind:'spray'}),
+ P('sahu-lavanda','sahumerios-y-esencias','Sahumerios de lavanda',2200,'Caja de 12 varillas.'),
+ P('sahu-sandalo','sahumerios-y-esencias','Sahumerios de sándalo',2200,'Caja de 12 varillas.'),
+ P('esencia-lavanda','sahumerios-y-esencias','Esencia de lavanda, 10 ml',3600,'Para difusor o hornillo.',{kind:'fertilizantes'}),
+ P('fuente-mesa','fuentes','Fuente de mesa',24500,'Tamaño chico, con bomba silenciosa.',{colors:COL_FUE}),
+ P('fuente-cemento','fuentes','Fuente de cemento',48000,'Para terraza o jardín. Dos bandejas.',{colors:COL_FUE}),
+ P('fuente-pie','fuentes','Fuente de pie',62000,'Columna alta con tres bandejas.',{colors:COL_FUE})
+];
+const byId=Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
+const FEATURED=['monstera','pie-nordico-redondo','maceta-cemento','fuente-mesa'];
+
+/* ====== Utilidades ====== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>'$'+new Intl.NumberFormat('es-AR').format(n);
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const catName=slug=>(CATS.find(c=>c.slug===slug)||{}).name||'';
+const waLink=t=>`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
+const sel={};
+const state={cat:''};
+
+/* ====== Tarjetas de producto ====== */
+function card(p,ctx){
+  const s=sel[p.id]||(sel[p.id]={color:p.colors?p.colors[0]:null,size:p.sizes?0:null,img:0});
+  const col=s.color?COLORS[s.color]:null;
+  const price=p.price==null?null:p.price+(p.sizes?p.sizes[s.size].add:0);
+  const photos=p.imgs&&p.imgs.length?p.imgs:null;
+  const top=photos
+    ?`<div class="card-art photo"><img src="${esc(photos[s.img])}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`+(photos.length>1?`<div class="thumbs" role="group" aria-label="Fotos de ${esc(p.name)}">${photos.map((u,i)=>`<button type="button" class="tb" data-img="${i}" aria-label="Ver foto ${i+1} de ${photos.length}" aria-pressed="${i===s.img}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join('')}</div>`:'')
+    :`<div class="card-art">${art(p.kind||p.cat,col?col[1]:null)}</div>`;
+  return `<article class="card" data-id="${p.id}" data-ctx="${ctx}">
+    ${top}
+    <div class="card-body">
+      <h3>${esc(p.name)}</h3>
+      <p>${esc(p.desc)}</p>
+      ${p.colors?`<div class="opt"><span class="lbl">Color: ${col[0]}</span><div class="sw">${p.colors.map(k=>`<button type="button" class="swatch" data-color="${k}" aria-label="${COLORS[k][0]}" aria-pressed="${k===s.color}" style="--c:${COLORS[k][1]}"></button>`).join('')}</div></div>`:''}
+      ${p.sizes?`<div class="opt"><label class="lbl" for="sz-${p.id}-${ctx}">Medida</label><select id="sz-${p.id}-${ctx}" data-size>${p.sizes.map((z,i)=>`<option value="${i}"${i===s.size?' selected':''}>${z.label}</option>`).join('')}</select></div>`:''}
+      <div class="buy">${price==null?'<span class="consult">Consultar precio</span>':`<strong class="price">${fmt(price)}</strong>`}<button type="button" class="btn sm" data-add>Agregar al carrito</button></div>
+    </div>
+  </article>`;
+}
+function refreshCard(el,focusSel){
+  const p=byId[el.dataset.id];
+  const tmp=document.createElement('div');
+  tmp.innerHTML=card(p,el.dataset.ctx);
+  const n=tmp.firstElementChild;
+  el.replaceWith(n);
+  if(focusSel){const f=n.querySelector(focusSel);if(f)f.focus()}
+}
+
+/* ====== Vistas ====== */
+function renderProductos(cat){
+  state.cat=cat;
+  $('#p-title').textContent=cat?catName(cat):'Productos';
+  $('#p-cats').innerHTML=`<a href="#productos"${!cat?' aria-current="true"':''}>Todos <small>${PRODUCTS.length}</small></a>`+
+    CATS.map(c=>`<a href="#productos-${c.slug}"${c.slug===cat?' aria-current="true"':''}>${c.name} <small>${PRODUCTS.filter(p=>p.cat===c.slug).length}</small></a>`).join('');
+  renderGrid();
+}
+function renderGrid(){
+  const raw=$('#q').value.trim(),q=norm(raw);
+  const list=PRODUCTS.filter(p=>(!state.cat||p.cat===state.cat)&&(!q||norm(p.name+' '+p.desc+' '+catName(p.cat)).includes(q)));
+  $('#p-count').textContent=list.length===1?'1 producto':list.length+' productos';
+  $('#grid').innerHTML=list.length?list.map(p=>card(p,'p')).join(''):
+    `<div class="empty" style="grid-column:1/-1"><p>No encontramos productos${raw?` para “${esc(raw)}”`:' en esta categoría'}.</p><p class="muted">Probá con otra palabra o mirá todos los productos.</p>${raw?'<button type="button" class="btn ghost sm" data-clear>Borrar búsqueda</button>':'<a class="btn ghost sm" href="#productos">Ver todos</a>'}</div>`;
+}
+function route(){
+  const h=location.hash.slice(1)||'inicio';
+  let view='inicio',cat='';
+  if(h==='productos'||h.startsWith('productos-')){view='productos';cat=h.slice(10)}
+  else if(['servicios','conocenos','inicio'].includes(h))view=h;
+  if(cat&&!CATS.some(c=>c.slug===cat))cat='';
+  document.querySelectorAll('[data-view]').forEach(s=>{s.hidden=s.dataset.view!==view});
+  document.querySelectorAll('.nav a').forEach(a=>{if(a.dataset.nav===view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  if(view==='productos')renderProductos(cat);
+  window.scrollTo(0,0);
+}
+
+/* ====== Carrito ====== */
+function loadCart(){
+  try{
+    const c=JSON.parse(localStorage.getItem('stroia-cart'))||[];
+    return Array.isArray(c)?c.filter(i=>i&&typeof i.key==='string'&&typeof i.name==='string'&&(i.price===null||Number.isFinite(i.price))&&Number.isInteger(i.qty)&&i.qty>0&&ART[i.kind]):[];
+  }catch(e){return[]}
+}
+let cart=loadCart();
+const saveCart=()=>{try{localStorage.setItem('stroia-cart',JSON.stringify(cart))}catch(e){}};
+const total=()=>cart.reduce((a,i)=>a+(i.price==null?0:i.price*i.qty),0);
+const hasPriced=()=>cart.some(i=>i.price!=null);
+const hasUnpriced=()=>cart.some(i=>i.price==null);
+const totalText=(long)=>!hasPriced()?'A confirmar':fmt(total())+(hasUnpriced()?(long?' más productos a confirmar':' + a confirmar'):'');
+const units=()=>cart.reduce((a,i)=>a+i.qty,0);
+function commit(){
+  saveCart();
+  const n=units();
+  $('#count').textContent=n;
+  $('#cartbtn').setAttribute('aria-label',`Abrir carrito, ${n} ${n===1?'producto':'productos'}`);
+  if(!$('#drawer').hidden)renderCart();
+}
+function addToCart(el){
+  const p=byId[el.dataset.id],s=sel[p.id];
+  const col=p.colors?COLORS[s.color]:null,sz=p.sizes?p.sizes[s.size]:null;
+  const key=[p.id,s.color||'',p.sizes?s.size:''].join('|');
+  const ex=cart.find(i=>i.key===key);
+  if(ex)ex.qty++;
+  else cart.push({key,id:p.id,name:p.name,detail:[col&&col[0],sz&&sz.label].filter(Boolean).join(', '),price:p.price==null?null:p.price+(sz?sz.add:0),qty:1,kind:p.kind||p.cat,hex:col?col[1]:'',img:p.imgs&&p.imgs[0]||''});
+  commit();
+  toast(`Agregaste ${p.name} al carrito`);
+}
+function renderCart(){
+  const list=$('#items');
+  list.innerHTML=cart.length?cart.map(i=>`<li class="item">
+    <div class="thumb">${i.img?`<img src="${esc(i.img)}" alt="">`:art(i.kind,i.hex)}</div>
+    <div>
+      <h4>${esc(i.name)}</h4>
+      ${i.detail?`<div class="det">${esc(i.detail)}</div>`:''}
+      <div class="row">
+        <div class="qty"><button type="button" data-act="dec" data-key="${esc(i.key)}" aria-label="Quitar una unidad de ${esc(i.name)}">−</button><output aria-live="polite">${i.qty}</output><button type="button" data-act="inc" data-key="${esc(i.key)}" aria-label="Sumar una unidad de ${esc(i.name)}">+</button></div>
+        ${i.price==null?'<span class="det">Precio a confirmar</span>':`<strong>${fmt(i.price*i.qty)}</strong>`}
+      </div>
+      <button type="button" class="linkbtn" data-act="del" data-key="${esc(i.key)}" aria-label="Quitar ${esc(i.name)} del carrito">Quitar</button>
+    </div></li>`).join(''):
+    `<li class="empty-cart"><p><strong>Todavía no agregaste nada.</strong></p><p class="muted">Mirá los productos y sumá lo que te guste.</p><a class="btn" href="#productos" data-close>Ver productos</a></li>`;
+  $('#order').hidden=!cart.length;
+  $('#total').textContent=totalText(false);
+  updateSend();
+}
+function orderText(){
+  const nombre=$('#nombre').value.trim(),nota=$('#nota').value.trim();
+  const lines=cart.map(i=>`• ${i.qty} x ${i.name}${i.detail?` (${i.detail})`:''} - ${i.price==null?'precio a confirmar':fmt(i.price*i.qty)}`);
+  return `Hola Stroia Home Deco! Quiero hacer este pedido:\n\n${lines.join('\n')}\n\nTotal: ${totalText(true)}\nEntrega: ${$('#entrega').value}`+(nombre?`\nNombre: ${nombre}`:'')+(nota?`\nAclaraciones: ${nota}`:'');
+}
+function updateSend(){
+  const a=$('#send');
+  if(cart.length){a.href=waLink(orderText());a.removeAttribute('aria-disabled')}
+  else{a.setAttribute('href','#');a.setAttribute('aria-disabled','true')}
+}
+const LOCK=['#top','#main','#foot','.wa'];
+function openCart(){
+  renderCart();
+  $('#drawer').hidden=false;$('#scrim').hidden=false;
+  document.body.classList.add('lock');
+  LOCK.forEach(s=>{const e=$(s);if(e)e.inert=true});
+  $('#close').focus();
+}
+function closeCart(){
+  $('#drawer').hidden=true;$('#scrim').hidden=true;
+  document.body.classList.remove('lock');
+  LOCK.forEach(s=>{const e=$(s);if(e)e.inert=false});
+}
+let tt;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+
+/* ====== Eventos ====== */
+document.addEventListener('click',e=>{
+  const t=e.target;let el;
+  if((el=t.closest('.tb'))){
+    const c=el.closest('.card');sel[c.dataset.id].img=+el.dataset.img;
+    refreshCard(c,`.tb[data-img="${el.dataset.img}"]`);
+  }else if((el=t.closest('.swatch'))){
+    const c=el.closest('.card');sel[c.dataset.id].color=el.dataset.color;
+    refreshCard(c,`.swatch[data-color="${el.dataset.color}"]`);
+  }else if((el=t.closest('[data-add]'))){
+    addToCart(el.closest('.card'));
+  }else if((el=t.closest('[data-act]'))){
+    const i=cart.find(x=>x.key===el.dataset.key);if(!i)return;
+    if(el.dataset.act==='inc')i.qty++;
+    else if(el.dataset.act==='dec')i.qty--;
+    else i.qty=0;
+    cart=cart.filter(x=>x.qty>0);
+    commit();
+    const again=$(`[data-act="${el.dataset.act}"][data-key="${CSS.escape(el.dataset.key)}"]`);
+    (again||$('#close')).focus();
+  }else if(t.closest('[data-close]')){
+    closeCart();$('#cartbtn').focus();
+  }else if(t.closest('#cartbtn')){
+    openCart();
+  }else if(t.closest('#clear')){
+    cart=[];commit();$('#close').focus();
+  }else if(t.closest('[data-clear]')){
+    $('#q').value='';renderGrid();$('#q').focus();
+  }
+});
+document.addEventListener('change',e=>{
+  const s=e.target.closest('[data-size]');
+  if(s){const c=s.closest('.card');sel[c.dataset.id].size=+s.value;refreshCard(c,'[data-size]')}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#drawer').hidden){closeCart();$('#cartbtn').focus()}});
+['#nombre','#entrega','#nota'].forEach(s=>$(s).addEventListener('input',updateSend));
+$('#q').addEventListener('input',renderGrid);
+window.addEventListener('hashchange',route);
+
+/* ====== Inicio ====== */
+$('#hero-art').innerHTML=heroArt();
+$('#about-art').innerHTML=heroArt();
+$('#svc1-art').innerHTML=art('articulos',OLI);
+$('#svc2-art').innerHTML=art('plantas-de-interior','#EFEBE2');
+$('#tiles').innerHTML=CATS.map(c=>`<a class="tile" href="#productos-${c.slug}"><span class="tile-art">${art(c.slug)}</span><span class="tile-name">${c.name}</span></a>`).join('');
+$('#featured').innerHTML=FEATURED.map(id=>card(byId[id],'h')).join('');
+document.querySelectorAll('[data-wa]').forEach(a=>{a.href=waLink(a.dataset.wa)});
+$('#ig').href=INSTAGRAM_URL;
+commit();
+route();
+</script>
+</body>
+</html>
